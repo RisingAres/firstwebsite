@@ -1,0 +1,25 @@
+{%  extends "layout.html" %}
+
+{% block content %}
+
+<div class = 'row'>
+	<h2>Articles of rubric {{rubric.rubric_name}}</h2>
+	{% for article in article_from_rubric %}
+    <hr>
+    <div>
+    	{% if article.image %}
+    	<p> <img src="{{article.image.url}}" class="img-responsive"> </p>
+    	{% else %}
+    	<p></p>
+    	{% endif %}
+    </div>
+    <div class="col-sm-8">
+    	<h2>
+            <a href="{% url 'article-detail' pk=article.pk %}">{{ article.title }}</a>
+        </h2>
+    	<p>{{article.content|truncatewords:15}}</p>
+    </div>
+    {% endfor %}
+</div>	
+
+{% endblock %}

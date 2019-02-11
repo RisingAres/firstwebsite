@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{%  block content %}
+    <h1>{{ article_detail.rubric }}</h1>
+    <h2>{{ article_detail.title }}</h2>
+    <div>
+    	{% if article_detail.image %}
+            <p> <img src="{{article_detail.image.url}}" class="img-responsive"> </p>
+        {% endif %}
+    </div>
+    <body>
+	    {{ object.content }}
+        <hr>
+
+        <div>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add_comment_to_article' pk=article.pk %}">Add comment</a>  
+            <hr>
+            {% else %}
+            <p>Only authorized users can leave comments.</p>
+            <hr>
+            {% endif %}
+        </div>
+
+        {% for comment in  article.comments.all %}
+            <div>
+                <div>{{ comment.created_at }}</div>
+                <strong>{{ comment.author }}</strong>
+                <p>{{ comment.text|linebreaks }}</p>
+            </div>
+        {% empty %}
+            <p>No comments here yet :(</p>
+        {% endfor %}
+    </body>
+{% endblock%}

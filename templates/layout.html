@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>{% block title %}Django First Website{% endblock %}</title>
+  <!-- <meta name="description" content="The HTML5 Herald"> -->
+  <!-- <meta name="author" content="SitePoint"> -->
+
+  <!-- link rel="stylesheet" href="css/styles.css?v=1.0" -->
+
+</head>
+<body>
+    <header>
+        {% block navigation %}
+        <navigation>
+          <div style="height: 50px">
+              {%  if not request.user.is_authenticated %}
+                  {% include 'delimiter.html' with float='right' %}
+                  <a style="float: right" href="{% url 'registration' %}">Registration</a>
+                  {% include 'delimiter.html' with float='right' %}
+                  <a style="float: right" href="{% url 'login_view' %}">Login</a>
+              {% else %}
+                  {% include 'delimiter.html' with float='right' %}
+                  <a style="float: right" href="{% url 'logout_view' %}">Logout</a>
+                  <p>Hello {{ request.user }} !</p>
+              {%  endif %}
+          </div>
+        </navigation>
+        {%  endblock %}
+        <nav>
+          <div style="height: 80px">
+            {% block left_menu %}
+              <a href="{% url 'main' %}">Main page</a> |
+              <a href="{% url 'article-list' %}">Articles</a> 
+              <!-- There should be links to sections of the site-->
+            {% endblock %}
+          </div>
+        </nav>
+    </header>
+    <div style="width: 80%;margin: 0 auto">
+        {%  block content %}
+            <!-- Main content will be there -->
+        {%  endblock %}
+    </div>
+  <!-- script src="js/scripts.js"></script-->
+  <footer>
+      {%  block footer %}
+      {%  endblock %}
+  </footer>
+</body>
+</html>

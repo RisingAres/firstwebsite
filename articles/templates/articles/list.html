@@ -1,0 +1,25 @@
+{%  extends "layout.html" %} 
+{# {% extends "rubric/rubric_list.html" %} #}
+
+{% block left_menu %}
+    <a href="{% url 'main' %}">Main page</a>
+    <div>
+        <p> Articles Rubric: </p>
+        {% for rubric in rubrics %}
+             <a href="/rubric/{{rubric.pk}}/">{{ rubric.rubric_name }}</a> |
+        {% endfor %}
+    </div>
+{% endblock%}
+
+{% block content %}
+    {% if object_list %}
+        <ul>
+        {% for article in object_list %}
+            <li><a href="/articles/{{article.pk}}/">{{article.title}}
+            </a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no published articles yet. Wait quite a bit)</p>
+    {% endif %}
+{%  endblock %}

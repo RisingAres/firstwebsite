@@ -1,0 +1,14 @@
+{%  extends "layout.html" %}
+
+{% block content %}
+	<h3>New User Registration</h3>
+	<hr>
+    <div>
+    	<form method="POST">
+    	{{ form.error }}
+    	{% csrf_token %}
+    	{{form.as_p}}
+        <input type="submit" value="Registration">
+    </form>
+    </div>
+{% endblock %}
